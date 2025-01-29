@@ -148,7 +148,9 @@ export class BookSearchComponent {
   pagesIndicator: number = 0;
 
   setPagesIndicator(value: number): void {
-    this.pagesIndicator = value;}
+    this.pagesIndicator = value;
+    this.searchBooks();
+  }
 
   searchBooks() {
     if (!this.isValidSearch()) {
@@ -178,7 +180,7 @@ export class BookSearchComponent {
       this.searchParams.title ||
       this.searchParams.author ||
       this.searchParams.publicationYear ||
-      this.searchParams.numberOfPages &&
+      this.searchParams.numberOfPages ||
       this.searchParams.pagesIndicator
     );
   }
