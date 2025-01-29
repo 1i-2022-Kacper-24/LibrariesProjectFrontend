@@ -106,8 +106,9 @@ import { Book } from '../../models/book';
       color: black;
       border: none;
       padding: 10px 20px;
-      border-radius: 4px;
+      border-radius: 40px;
       cursor: pointer;
+      margin: 10px;
     }
 
     .indicator-button:hover {
