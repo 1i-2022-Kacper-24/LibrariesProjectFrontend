@@ -3,6 +3,7 @@ export interface Book {
   author?: string;
   publicationYear?: number;
   numberOfPages?: number;
+  pagesIndicator?: number;
   shelfNumber: string;
   city: string;
 }

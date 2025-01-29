@@ -33,6 +33,13 @@ import { Book } from '../../models/book';
           <input id="pages" type="number" [(ngModel)]="searchParams.numberOfPages" class="form-control">
         </div>
 
+        <div class="form-group">
+          <label for="pagesIndicator">Please select one:</label>
+          <button (click)="setPagesIndicator(-1)" class="indicator-button">Pages less than</button>
+          <button (click)="setPagesIndicator(0)" class="indicator-button">Pages equal to</button>
+          <button (click)="setPagesIndicator(1)" class="indicator-button">Pages more than</button>
+        </div>
+
         <button (click)="searchBooks()" class="search-button">Search</button>
       </div>
 
@@ -83,7 +90,7 @@ import { Book } from '../../models/book';
 
     .search-button {
       background: #007bff;
-      color: white;
+      color: black;
       border: none;
       padding: 10px 20px;
       border-radius: 4px;
@@ -92,6 +99,19 @@ import { Book } from '../../models/book';
 
     .search-button:hover {
       background: #0056b3;
+    }
+
+    .indicator-button {
+      background:rgb(255, 0, 0);
+      color: black;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .indicator-button:hover {
+      background:rgb(179, 0, 0);
     }
 
     .book-card {
@@ -115,13 +135,19 @@ export class BookSearchComponent {
     title: '',
     author: '',
     publicationYear: null as number | null,
-    numberOfPages: null as number | null
+    numberOfPages: null as number | null,
+    pagesIndicator: null as number | null
   };
 
   books: Book[] = [];
   error = '';
 
   constructor(private bookService: BookService) {}
+
+  pagesIndicator: number = 0;
+
+  setPagesIndicator(value: number): void {
+    this.pagesIndicator = value;}
 
   searchBooks() {
     if (!this.isValidSearch()) {
@@ -151,7 +177,8 @@ export class BookSearchComponent {
       this.searchParams.title ||
       this.searchParams.author ||
       this.searchParams.publicationYear ||
-      this.searchParams.numberOfPages
+      this.searchParams.numberOfPages &&
+      this.searchParams.pagesIndicator
     );
   }
 
@@ -161,6 +188,7 @@ export class BookSearchComponent {
     if (this.searchParams.author) params.author = this.searchParams.author;
     if (this.searchParams.publicationYear) params.publicationYear = this.searchParams.publicationYear;
     if (this.searchParams.numberOfPages) params.numberOfPages = this.searchParams.numberOfPages;
+    if (this.searchParams.pagesIndicator) params.pagesIndicator = this.searchParams.pagesIndicator
     return params;
   }
 }

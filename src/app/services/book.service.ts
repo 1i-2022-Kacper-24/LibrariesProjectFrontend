@@ -11,11 +11,14 @@ export class BookService {
 
   constructor(private http: HttpClient) {}
 
+  
+
   searchBooks(searchParams: {
     title?: string;
     author?: string;
     publicationYear?: number;
     numberOfPages?: number;
+    pagesIndicator?: number;
   }): Observable<Book[]> {
     let params = new HttpParams();
     
@@ -30,6 +33,9 @@ export class BookService {
     }
     if (searchParams.numberOfPages) {
       params = params.set('numberOfPages', searchParams.numberOfPages.toString());
+    }
+    if (searchParams.pagesIndicator) {
+      params = params.set('pagesIndicator', searchParams.pagesIndicator.toString());
     }
 
     return this.http.get<Book[]>(this.apiUrl, { params });
