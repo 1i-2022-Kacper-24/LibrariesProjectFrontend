@@ -34,10 +34,13 @@ import { Book } from '../../models/book';
         </div>
 
         <div class="form-group">
-          <label for="pagesIndicator">Please select one:</label>
-          <button (click)="setPagesIndicator(-1)" class="indicator-button">Pages less than</button>
-          <button (click)="setPagesIndicator(0)" class="indicator-button">Pages equal to</button>
-          <button (click)="setPagesIndicator(1)" class="indicator-button">Pages more than</button>
+          <label for="pagesIndicator">Search by pages:</label>
+
+          <select id="pagesDropdown" [(ngModel)]="searchParams.pagesIndicator" class="indicator-button">
+            <option value="-1">Less pages than number selected</option>
+            <option value="0">Pages equal to number selected</option>
+            <option value="1">More pages than number selected</option>
+          </select>
         </div>
 
         <button (click)="searchBooks()" class="search-button">Search</button>
@@ -102,7 +105,7 @@ import { Book } from '../../models/book';
     }
 
     .indicator-button {
-      background:rgb(255, 0, 0);
+      background:rgb(255, 145, 0);
       color: black;
       border: none;
       padding: 10px 20px;
@@ -112,7 +115,7 @@ import { Book } from '../../models/book';
     }
 
     .indicator-button:hover {
-      background:rgb(179, 0, 0);
+      background:rgb(255, 172, 77);
     }
 
     .book-card {
@@ -137,7 +140,7 @@ export class BookSearchComponent {
     author: '',
     publicationYear: null as number | null,
     numberOfPages: null as number | null,
-    pagesIndicator: null as number | null
+    pagesIndicator: 0 as number
   };
 
   books: Book[] = [];
@@ -145,12 +148,6 @@ export class BookSearchComponent {
 
   constructor(private bookService: BookService) {}
 
-  pagesIndicator: number = 0;
-
-  setPagesIndicator(value: number): void {
-    this.pagesIndicator = value;
-    this.searchBooks();
-  }
 
   searchBooks() {
     if (!this.isValidSearch()) {
@@ -191,7 +188,7 @@ export class BookSearchComponent {
     if (this.searchParams.author) params.author = this.searchParams.author;
     if (this.searchParams.publicationYear) params.publicationYear = this.searchParams.publicationYear;
     if (this.searchParams.numberOfPages) params.numberOfPages = this.searchParams.numberOfPages;
-    if (this.searchParams.pagesIndicator) params.pagesIndicator = this.searchParams.pagesIndicator
+    if (this.searchParams.pagesIndicator !== null) params.pagesIndicator = this.searchParams.pagesIndicator
     return params;
   }
 }
