@@ -17,6 +17,7 @@ export class BookService {
     title?: string;
     author?: string;
     publicationYear?: number;
+    publicationIndicator?: number;
     numberOfPages?: number;
     pagesIndicator?: number;
   }): Observable<Book[]> {
@@ -30,6 +31,9 @@ export class BookService {
     }
     if (searchParams.publicationYear) {
       params = params.set('publicationYear', searchParams.publicationYear.toString());
+    }
+    if (searchParams.publicationIndicator) {
+      params = params.set('publicationIndicator', searchParams.publicationIndicator.toString());
     }
     if (searchParams.numberOfPages) {
       params = params.set('numberOfPages', searchParams.numberOfPages.toString());

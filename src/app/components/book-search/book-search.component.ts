@@ -29,6 +29,15 @@ import { Book } from '../../models/book';
         </div>
 
         <div class="form-group">
+          <label for="publicationIndicator">Search by year:</label>
+          <select id="pubYearDropdown" [(ngModel)]="searchParams.publicationIndicator" class="indicator-button">
+            <option value="-1">Older than year selected</option>
+            <option value="0">From selected year</option>
+            <option value="1">Newer than selected year</option>
+          </select>
+        </div>
+
+        <div class="form-group">
           <label for="pages">Number of Pages:</label>
           <input id="pages" type="number" [(ngModel)]="searchParams.numberOfPages" class="form-control">
         </div>
@@ -59,7 +68,7 @@ import { Book } from '../../models/book';
       </div>
 
       <p *ngIf="error" class="error">{{ error }}</p>
-    </div>
+    <div>
   `,
   styles: [`
     .container {
@@ -139,6 +148,7 @@ export class BookSearchComponent {
     title: '',
     author: '',
     publicationYear: null as number | null,
+    publicationIndicator: 0 as number,
     numberOfPages: null as number | null,
     pagesIndicator: 0 as number
   };
@@ -177,6 +187,7 @@ export class BookSearchComponent {
       this.searchParams.title ||
       this.searchParams.author ||
       this.searchParams.publicationYear ||
+      this.searchParams.publicationIndicator ||
       this.searchParams.numberOfPages ||
       this.searchParams.pagesIndicator
     );
@@ -187,6 +198,7 @@ export class BookSearchComponent {
     if (this.searchParams.title) params.title = this.searchParams.title;
     if (this.searchParams.author) params.author = this.searchParams.author;
     if (this.searchParams.publicationYear) params.publicationYear = this.searchParams.publicationYear;
+    if (this.searchParams.publicationIndicator !== null) params.publicationIndicator = this.searchParams.publicationIndicator
     if (this.searchParams.numberOfPages) params.numberOfPages = this.searchParams.numberOfPages;
     if (this.searchParams.pagesIndicator !== null) params.pagesIndicator = this.searchParams.pagesIndicator
     return params;
