@@ -137,7 +137,7 @@ import { Shelf } from "../../models/shelf";
           <p><strong>Publication Year:</strong> {{ book.publicationYear }}</p>
           <p><strong>Number of Pages:</strong> {{ book.numberOfPages }}</p>
           <p><strong>Shelf Number:</strong> {{ book.shelfNumber }}</p>
-          <p><strong>Library City:</strong> {{ book.city }}</p>
+          <p><strong>Library City:</strong> {{ book.cityName }}</p>
         </div>
       </div>
 
@@ -228,7 +228,7 @@ export class BookSearchComponent implements OnInit {
     publicationIndicator: 0 as number,
     numberOfPages: null as number | null,
     pagesIndicator: 0 as number,
-    libraryCity: "",
+    cityName: "",
     shelfNumber: null as number | null,
   };
 
@@ -272,6 +272,9 @@ export class BookSearchComponent implements OnInit {
   onLibraryChange() {
     console.log("Selected library:", this.selectedLibrary);
   }
+  onShelfChange() {
+    console.log("Selected shelf:", this.selectedShelf);
+  }
 
   searchBooks() {
     if (!this.isValidSearch()) {
@@ -303,14 +306,18 @@ export class BookSearchComponent implements OnInit {
       this.searchParams.publicationYear ||
       this.searchParams.publicationIndicator ||
       this.searchParams.numberOfPages ||
-      this.searchParams.pagesIndicator
+      this.searchParams.pagesIndicator ||
+      this.searchParams.cityName ||
+      this.searchParams.shelfNumber
     );
   }
 
   private getValidParams() {
     const params: any = {};
-    if (this.searchParams.title) params.title = this.searchParams.title;
-    if (this.searchParams.author) params.author = this.searchParams.author;
+    if (this.searchParams.title) 
+      params.title = this.searchParams.title;
+    if (this.searchParams.author) 
+      params.author = this.searchParams.author;
     if (this.searchParams.publicationYear)
       params.publicationYear = this.searchParams.publicationYear;
     if (this.searchParams.publicationIndicator !== null)
@@ -319,6 +326,10 @@ export class BookSearchComponent implements OnInit {
       params.numberOfPages = this.searchParams.numberOfPages;
     if (this.searchParams.pagesIndicator !== null)
       params.pagesIndicator = this.searchParams.pagesIndicator;
+    if (this.selectedLibrary !== null)
+      params.cityName = this.selectedLibrary?.cityName
+    if (this.selectedShelf !== null)
+      params.shelfNumber = this.selectedShelf?.shelfNumber
     return params;
   }
 }

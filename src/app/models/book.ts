@@ -6,5 +6,5 @@ export interface Book {
   numberOfPages?: number;
   pagesIndicator?: number;
   shelfNumber?: string;
-  city?: string;
+  cityName?: string;
 }
