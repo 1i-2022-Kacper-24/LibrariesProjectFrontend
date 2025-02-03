@@ -112,7 +112,7 @@ import { Shelf } from "../../models/shelf";
             <label for="pagesIndicator">Search by shelf:</label>
             <select
               [(ngModel)]="selectedShelf"
-              (change)="onLibraryChange()"
+              (change)="onShelfChange()"
               class="indicator-button"
             >
               <option value="">Select a Shelf</option>
@@ -307,8 +307,8 @@ export class BookSearchComponent implements OnInit {
       this.searchParams.publicationIndicator ||
       this.searchParams.numberOfPages ||
       this.searchParams.pagesIndicator ||
-      this.searchParams.cityName ||
-      this.searchParams.shelfNumber
+      this.selectedLibrary?.cityName ||
+      this.selectedShelf?.shelfNumber
     );
   }
 
