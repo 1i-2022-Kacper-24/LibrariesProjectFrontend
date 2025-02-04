@@ -277,10 +277,6 @@ export class BookSearchComponent implements OnInit {
   }
 
   searchBooks() {
-    if (!this.isValidSearch()) {
-      this.error = "Please fill at least one search field";
-      return;
-    }
 
     this.error = "";
     const params = this.getValidParams();
@@ -299,18 +295,6 @@ export class BookSearchComponent implements OnInit {
     });
   }
 
-  private isValidSearch(): boolean {
-    return !!(
-      this.searchParams.title ||
-      this.searchParams.author ||
-      this.searchParams.publicationYear ||
-      this.searchParams.publicationIndicator ||
-      this.searchParams.numberOfPages ||
-      this.searchParams.pagesIndicator ||
-      this.selectedLibrary?.cityName ||
-      this.selectedShelf?.shelfNumber
-    );
-  }
 
   private getValidParams() {
     const params: any = {};
