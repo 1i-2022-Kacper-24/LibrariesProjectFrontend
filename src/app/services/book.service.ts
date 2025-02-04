@@ -20,6 +20,8 @@ export class BookService {
     publicationIndicator?: number;
     numberOfPages?: number;
     pagesIndicator?: number;
+    cityName?: string;
+    shelfNumber?: number;
   }): Observable<Book[]> {
     let params = new HttpParams();
     
@@ -40,6 +42,12 @@ export class BookService {
     }
     if (searchParams.pagesIndicator) {
       params = params.set('pagesIndicator', searchParams.pagesIndicator.toString());
+    }
+    if (searchParams.cityName) {
+      params = params.set('cityName', searchParams.cityName.toString());
+      if (searchParams.shelfNumber) {
+        params = params.set('shelfNumber', searchParams.shelfNumber.toString());
+      }
     }
 
     return this.http.get<Book[]>(this.apiUrl, { params });
