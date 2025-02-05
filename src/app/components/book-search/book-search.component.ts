@@ -296,7 +296,7 @@ export class BookSearchComponent implements OnInit {
   }
 
 
-  ckeckApi(){
+  checkApi(){
   this.bookService.checkApi().subscribe({
     next: (response) => {
       
