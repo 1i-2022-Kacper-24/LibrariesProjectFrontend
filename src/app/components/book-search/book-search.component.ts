@@ -303,7 +303,7 @@ export class BookSearchComponent implements OnInit {
     },
     error: (error) => {
       error.status
-      if (error.status = 503){
+      if (error.status === 503){
         this.error = "Error on database side!"
         }
       else{
