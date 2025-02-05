@@ -16,12 +16,13 @@ import { Shelf } from "../../models/shelf";
       <h2>Book Search</h2>
 
       <div *ngIf="connectionError" class="error-message">
-        <p>⚠️ Unable to connect to the library service</p>
+        <p>⚠️ {{errorMessage}}</p>
         <p>Please ensure:</p>
         <ul>
           <li>The backend server is running</li>
           <li>It's accessible at localhost:8080</li>
           <li>CORS is properly configured</li>
+          <li>Database is up and running</li>
         </ul>
         <button (click)="retryConnection()" class="retry-button">
           Try Again
@@ -236,6 +237,7 @@ export class BookSearchComponent implements OnInit {
   selectedLibrary: Library | null = null;
   selectedShelf: Shelf | null = null;
   connectionError = false;
+  errorMessage: string = "";
 
   books: Book[] = [];
   error = "";
@@ -247,10 +249,10 @@ export class BookSearchComponent implements OnInit {
 
   ngOnInit() {
     this.loadLibraries();
+    this.startApiCheck();
   }
 
   loadLibraries() {
-    this.connectionError = false;
     this.libraryService.getAllLibraries().subscribe({
       next: (data) => {
         this.libraries = data;
@@ -296,6 +298,13 @@ export class BookSearchComponent implements OnInit {
   }
 
 
+  startApiCheck() {
+    this.checkApi();
+    setInterval(() => {
+      this.checkApi();
+    }, 5000);
+  }
+
   checkApi(){
   this.bookService.checkApi().subscribe({
     next: (response) => {
@@ -303,13 +312,15 @@ export class BookSearchComponent implements OnInit {
     },
     error: (error) => {
         if (error.status === 503){
-        this.error = "Error on database side!"
+        this.errorMessage = "Error on database side!"
         }
       else{
-        this.error = "Error on backend side!"
+        this.errorMessage = "Error on backend side!"
         }
       },
     });
+
+    this.retryConnection();
   }
 
   private getValidParams() {
