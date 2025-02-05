@@ -8,6 +8,7 @@ import { Book } from '../models/book';
 })
 export class BookService {
   private apiUrl = 'http://localhost:8080/library/search';
+  private checkApiUrl = 'http://localhost:8080/library/check';
 
   constructor(private http: HttpClient) {}
 
@@ -51,5 +52,9 @@ export class BookService {
     }
 
     return this.http.get<Book[]>(this.apiUrl, { params });
+  }
+
+  checkApi(){
+  return this.http.get(this.checkApiUrl);
   }
 }
