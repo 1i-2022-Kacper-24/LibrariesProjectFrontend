@@ -19,10 +19,10 @@ import { Shelf } from "../../models/shelf";
         <p>⚠️ {{errorMessage}}</p>
         <p>Please ensure:</p>
         <ul>
-          <li>The backend server is running</li>
-          <li>It's accessible at localhost:8080</li>
-          <li>CORS is properly configured</li>
-          <li>Database is up and running</li>
+          <li *ngIf="errorMessage !=='Error on database side!'">The backend server is running</li>
+          <li *ngIf="errorMessage !=='Error on database side!'">It's accessible at localhost:8080</li>
+          <li *ngIf="errorMessage !=='Error on database side!'">CORS is properly configured</li>
+          <li *ngIf="errorMessage !=='Error on backend side!'">Database is up and running</li>
         </ul>
         <button (click)="retryConnection()" class="retry-button">
           Try Again
