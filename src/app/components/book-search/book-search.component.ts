@@ -305,13 +305,13 @@ export class BookSearchComponent implements OnInit {
       error.status
       if (error.status = 503){
         this.error = "Error on database side!"
-      }
+        }
       else{
         this.error = "Error on backend side!"
-      }
-    },
-  });
-}
+        }
+      },
+    });
+  }
 
   private getValidParams() {
     const params: any = {};
