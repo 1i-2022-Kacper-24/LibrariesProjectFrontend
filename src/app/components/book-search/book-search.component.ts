@@ -296,6 +296,23 @@ export class BookSearchComponent implements OnInit {
   }
 
 
+  ckeckApi(){
+  this.bookService.checkApi().subscribe({
+    next: (response) => {
+      
+    },
+    error: (error) => {
+      error.status
+      if (error.status = 503){
+        this.error = "Error on database side!"
+      }
+      else{
+        this.error = "Error on backend side!"
+      }
+    },
+  });
+}
+
   private getValidParams() {
     const params: any = {};
     if (this.searchParams.title) 
