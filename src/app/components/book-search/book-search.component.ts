@@ -15,7 +15,7 @@ import { Shelf } from "../../models/shelf";
     <div class="container">
       <h2>Book Search</h2>
 
-      <div *ngIf="connectionError" class="error-message">
+      <div *ngIf="connectionError" class="error">
         <p>⚠️ {{errorMessage}}</p>
         <p>Please ensure:</p>
         <ul>
@@ -216,7 +216,7 @@ import { Shelf } from "../../models/shelf";
         color: red;
         padding: 10px;
         background: #ffe6e6;
-        border-radius: 4px;
+        border-radius: 15px;
       }
     `,
   ],
